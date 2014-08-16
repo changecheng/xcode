@@ -22,7 +22,7 @@ const int num = 64;
 int main(int argc, const char * argv[]) {
     int a[num],b[num],shang[num],yu[num],c[num+1];
     char operator;
-    printf("This Program Can Process 2 Numbers(64-digit limited) to Add or Subtract: \n");
+    printf("This Program Can Process 2 Numbers(64-digit limited) to Add or Subtract or divide: \n");
     printf("Please input your first number: \n");    //input first num
     Get64Number(a);
     
