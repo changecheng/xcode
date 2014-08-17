@@ -5,7 +5,7 @@
 //  Created by Change Cheng on 14/8/16.
 //  Copyright (c) 2014年 Change Cheng. All rights reserved.
 //(-48*(12-6)/-22+40)*-30        -1590
-
+// (-628*1993/(6+13))/1993
 #include <stdio.h>
 const int Max=32;
 typedef struct {
