@@ -4,7 +4,7 @@
 //
 //  Created by Change Cheng on 14/8/16.
 //  Copyright (c) 2014年 Change Cheng. All rights reserved.
-//
+//(-4*(12-6)/-2+4)*-3
 
 #include <stdio.h>
 const int Max=32;
@@ -97,7 +97,7 @@ void ProcessString(int array[],int opOrNum[]){
                 i++;
             }
         //consider unary -
-            if (lastisop==1 && c==45 && lastop!=41) {   //last op should not be ')'
+            if ((lastisop==1 && c==45 && lastop!=41 )|| (i==0&&c==45)) {   //last op should not be ')'
                 //unary -
                 lessThanZeroNum=1;
                 
