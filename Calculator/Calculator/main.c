@@ -4,7 +4,7 @@
 //
 //  Created by Change Cheng on 14/8/16.
 //  Copyright (c) 2014年 Change Cheng. All rights reserved.
-//(-4*(12-6)/-2+4)*-3
+//(-48*(12-6)/-22+40)*-30        -1590
 
 #include <stdio.h>
 const int Max=32;
