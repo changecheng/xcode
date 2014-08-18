@@ -324,7 +324,12 @@ int main(int argc, const char * argv[]) {
 //        printf("operands\n");
     }
     if (errorTag==0) {
-        printf("The result is %d.\n",pop(&operands));
+        if (operands.length!=0) {
+            printf("The result is %d.\n",pop(&operands));
+        }else{
+            printf("The result is 0.");
+        }
+        
     }
     
     
