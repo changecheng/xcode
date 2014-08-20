@@ -8,12 +8,13 @@
 // (-628*1993/(6+13))/1993
 //-45/5--5*8
 // 11/0
-#include <stdio.h>
 
-const int Max=32;
+//calculate integer calculation expression with float result
+#include <stdio.h>
+const int Max=64;      //most Max bits of expression
+//def stack
 typedef struct {
-    int data[Max];
-    
+    float data[Max];
     int length;
     
 } Stack;
@@ -32,7 +33,7 @@ int fullStack(Stack *st) {
     }
     return 0;
 }
-int pop(Stack *st){
+float pop(Stack *st){
     
     if (emptyStack(st)) {
         printf("Stack is empty!\n");
@@ -41,12 +42,12 @@ int pop(Stack *st){
     st->length--;
     return st->data[st->length];
 }
-void push(Stack *st,int n) {
+void push(Stack *st,float n) {
     st->data[st->length]=n;
     st->length++;
     
 }
-int topStack(Stack *st){
+float topStack(Stack *st){
     return st->data[st->length-1];
 }
 void clearStack(Stack *st){
@@ -66,6 +67,7 @@ int isNum(int c){
     }
     return 0;
 }
+
 //process operation expression
 void ProcessString(int array[],int opOrNum[]){
     //    int opOrNum[Max];//store tag of array
@@ -80,16 +82,9 @@ void ProcessString(int array[],int opOrNum[]){
         //process char
         if (isNum(c)) {
             c=c-48;
-            //consider whether is num under zero
-            //            if (lessThanZeroNum==1) {
-            //                x=10*x-c;
-            //            }else{
-            //                x=10*x+c;
-            //            }
             x=10*x+c;
             tag=1;
-            //            array[i]=c;
-            //            i++;
+            
         }else if (isOperator(c)){
             if (tag==1) {         //encounter an op,last input is a number
                 array[i]=x;
@@ -118,8 +113,6 @@ void ProcessString(int array[],int opOrNum[]){
                 lastisop=1;
                 lastop=c;
             }
-            
-            
         }
     }
     if (tag==1) {
@@ -133,14 +126,8 @@ void ProcessString(int array[],int opOrNum[]){
         opOrNum[i]=1;
         
     }
-    
-    //    if (x!=0) {
-    //        array[i]=x;
-    //        opOrNum[i]=0;
-    //        i++;
-    //    }
-    
 }
+//convert c to correspondent prior no.
 int dect(int c){
     switch (c) {
         case 43:
@@ -173,38 +160,7 @@ int dect(int c){
     return 0;
 }
 
-char convertOp(int c){
-    switch (c) {
-        case 43:
-            return '+';
-            break;
-        case 45:
-            return '-';
-            break;
-        case 42:
-            return '*';
-            break;
-        case 47:
-            return '/';
-            break;
-        case 40:
-            return '(';
-            break;
-        case 41:
-            return ')';
-            break;
-        case 35:
-            return '#';
-            break;
-        case 50:
-            return 'u';     //unary -
-            break;
-        default:
-            break;
-    }
-    return '?';
-    
-}
+
 /////main
 int main(int argc, const char * argv[]) {
     printf("@@@@@@@@@@ @@@@@@@ @@@   @@   @@    @@@@  \n");
@@ -230,20 +186,12 @@ int main(int argc, const char * argv[]) {
         {1,1,1,1,1,1,1,0}     //add unary -
         
     };
-    //conver symbol to choose priority
-    //    int n=dect(35);
-    //    printf("%d",n);
+    
     int array[Max],opOrNum[Max];
-    int tempnum1,tempnum2,tempsum=0,tempop=0;
+    float tempnum1=0.0,tempnum2=0.0,tempsum=0.0;
+    int tempop=0;
     ProcessString(array,opOrNum);    //convert operation to number array
-    //Print opOrNum and array////////////////
-    //    for (int i=0; i<Max-1; i++) {
-    //        printf(" %d ",opOrNum[i]);
-    //    }
-    //    printf("\n");
-    //    for (int i=0; i<Max-1; i++) {
-    //        printf("%d,",array[i]);
-    //    }
+    
     //execute
     Stack operands,operators;
     push(&operators, 35);//initialization
@@ -254,12 +202,12 @@ int main(int argc, const char * argv[]) {
     for (int i=0; i<Max&&unfinished; i++) {
         if (opOrNum[i]==0) {              //array[i]>=0&&array[i]<=9
             //num into operands
-            push(&operands, array[i]);
+            push(&operands, (float)array[i]);
         }else{
             //symbols into operators
-            int lastop=topStack(&operators);
-            int prio=priority[dect(array[i])][dect(lastop)];
-            // printf("prio is: %d \n",prio);
+            int lastop=(int)topStack(&operators);
+            int prio=priority[dect((int)array[i])][dect(lastop)];
+            
             switch (prio) {
                 case 1:
                     push(&operators, array[i]);
@@ -271,10 +219,7 @@ int main(int argc, const char * argv[]) {
                         unfinished=0;
                         errorTag=1;
                     }else{
-                        //                        tempnum2 = pop(&operands);
-                        //                        tempnum1 = pop(&operands);
                         tempop=pop(&operators);
-                        //printf("temp op is %d\n",tempop);
                         switch (tempop) {
                             case 43:
                                 tempnum2 = pop(&operands);
@@ -302,7 +247,6 @@ int main(int argc, const char * argv[]) {
                                 }else{
                                     tempsum = tempnum1 / tempnum2;
                                 }
-                                // /
                                 break;
                             case 50:   //unary -
                                 tempnum2 = pop(&operands);
@@ -312,16 +256,13 @@ int main(int argc, const char * argv[]) {
                             default:
                                 break;
                         }
-                        //                        printf("temp sum is %d\n",tempsum);
                         push(&operands,tempsum);
                         i--;
-                        
                     }
                     break;
                 case -1:
                     // ==
                     pop(&operators);
-                    //                    unfinished=0;
                     break;
                 case 3:
                     //finished
@@ -336,32 +277,14 @@ int main(int argc, const char * argv[]) {
                 default:
                     break;
             }
-            ///
-            
-            
         }
-        //Following is used to print stacks
-        //        for (int i = Max-1; i>=0; i--) {
-        //            printf("%d-",operators.data[i]);
-        //        }
-        //        printf("operators\n");
-        //
-        //        for (int i = Max-1; i>=0; i--) {
-        //            printf("%d+",operands.data[i]);
-        //        }
-        //        printf("operands\n");
     }
     if (errorTag==0) {
         if (operands.length!=0) {
-            printf("The result is %d.\n",pop(&operands));
+            printf("The result is %.4f.\n",pop(&operands));
         }else{
-            printf("The result is 0.\n");
+            printf("The result is 0.0.\n");
         }
-        
     }
-    
-    
-    
-    
     return 0;
 }
