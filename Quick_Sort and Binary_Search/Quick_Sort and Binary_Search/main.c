@@ -89,20 +89,42 @@ void QuickSort(int array[],int m,int n){
 
 
 int main(int argc, const char * argv[]) {
-    int s1[]={10,9,11,8,7,6,25,30};
-//    int pos=0;
-//    Partition(s1, 0, 7, &pos);
-    QuickSort(s1, 0, 7);
-    for (int i=0; i<8; i++) {
-        printf("%d,",s1[i]);
-    }
-//    printf("pos: %d\n",pos);
-//    int array[]={1,2,3,4,5,6,7,8,9};
-//    int pos=BinarySearch(array, 0, 8, 0);
-//    if (pos>=0){
-//        printf("Position is %d.\n",pos);
+//    int s1[]={10,9,11,8,7,6,25,30};
+//
+//    QuickSort(s1, 0, 7);
+//    for (int i=0; i<8; i++) {
+//        printf("%d,",s1[i]);
 //    }
+//    printf("\n");
+//
+//
+//    int n=BinarySearch(s1, 0, 7, 9);
+//    if (n>=0){
+//        printf("Position is %d.\n",n);
+//    }
+    printf("How many numbers would you like to sort?\n");
+    int n=0;
+    int array[32];
+    scanf("%d",&n);
+    printf("Please input %d numbers seperated by space: \n",n);
     
-    printf("Hello, World!\n");
+    for (int i=0; i<n; i++) {
+        scanf("%d",&array[i]);
+    }
+    QuickSort(array, 0, n);
+    printf("The sorted numbers are: \n");
+    for (int i=0; i<n; i++) {
+        printf("%d,",array[i]);
+    }
+    printf("\n");
+    printf("Please input the number you want to search: \n");
+    int sh=0;
+    scanf("%d",&sh);
+    int pos=BinarySearch(array, 0, n, sh);
+    if (pos>=0) {
+        printf("Position of your number is: %d\n",pos);
+    }else{
+        printf("Your number can not be founded!!\n");
+    }
     return 0;
 }
