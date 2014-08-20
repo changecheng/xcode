@@ -68,7 +68,7 @@ typedef struct {
 int main(int argc, const char * argv[]) {
     HNodeType HuffmanTree[2*num-1];
     //symbols and weight
-    int weight[]={5,4,3,2,1};
+    int weight[]={1,2,3,4,5};
     char name[]={'A','B','C','D','E'};
     //initialize HuffmanTree
 //init 0~num-1

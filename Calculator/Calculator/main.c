@@ -9,6 +9,7 @@
 //-45/5--5*8
 // 11/0
 #include <stdio.h>
+
 const int Max=32;
 typedef struct {
     int data[Max];
