@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 const int MaxBit=16;
-const int num=5;
+//const int num=5;
 typedef struct {
     int bit[MaxBit];
     int start;
@@ -65,10 +65,14 @@ typedef struct {
     int rchild;
     
 }HNodeType;  // def HNode
+
+//main   //
 int main(int argc, const char * argv[]) {
+    int num=5;
     HNodeType HuffmanTree[2*num-1];
     //symbols and weight
-    int weight[]={1,2,3,4,5};
+//    int weight[]={1,2,3,4,5};
+    int weight[]={5,4,3,2,1};
     char name[]={'A','B','C','D','E'};
     //initialize HuffmanTree
 //init 0~num-1
@@ -106,7 +110,6 @@ int main(int argc, const char * argv[]) {
                 if (HuffmanTree[j].weight<m1) {
                     m2=m1;
                     h2=h1;
-                    
                     h1=j;
                     m1=HuffmanTree[j].weight;
 //                    printf("m1 is %d\n",m1);

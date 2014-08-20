@@ -11,24 +11,20 @@
 
 //Binary Search//
 
-int BinarySearch(int array[],int m,int n,int item){
+void BinarySearch(int array[],int m,int n,int item,int *pos){
     int middle=0;
     middle=(m+n)/2;
     if (m<=n) {
         if (item==array[middle]) {
-            return middle;
+            
+            *pos=middle;
         }else if(item<array[middle]){
-            BinarySearch(array, m, middle-1, item);
+            BinarySearch(array, m, middle-1, item,pos);
         }else{
-            BinarySearch(array, middle+1, n, item);
+            BinarySearch(array, middle+1, n, item,pos);
         }
-
-    }else{
-        printf("Can't find this number!\n");
+        
     }
-    return -1;
-    
-    
 }
 
 //Partition
@@ -90,7 +86,7 @@ void QuickSort(int array[],int m,int n){
 
 int main(int argc, const char * argv[]) {
 //    int s1[]={10,9,11,8,7,6,25,30};
-//
+
 //    QuickSort(s1, 0, 7);
 //    for (int i=0; i<8; i++) {
 //        printf("%d,",s1[i]);
@@ -102,6 +98,9 @@ int main(int argc, const char * argv[]) {
 //    if (n>=0){
 //        printf("Position is %d.\n",n);
 //    }
+    
+    
+//execute
     printf("How many numbers would you like to sort?\n");
     int n=0;
     int array[32];
@@ -111,7 +110,7 @@ int main(int argc, const char * argv[]) {
     for (int i=0; i<n; i++) {
         scanf("%d",&array[i]);
     }
-    QuickSort(array, 0, n);
+    QuickSort(array, 0, n-1);
     printf("The sorted numbers are: \n");
     for (int i=0; i<n; i++) {
         printf("%d,",array[i]);
@@ -120,11 +119,21 @@ int main(int argc, const char * argv[]) {
     printf("Please input the number you want to search: \n");
     int sh=0;
     scanf("%d",&sh);
-    int pos=BinarySearch(array, 0, n, sh);
+    int pos=0;
+//    for (int i=0; i<n; i++) {
+//        printf("%d-",array[i]);
+//    }                                   //before
+    BinarySearch(array, 0, n-1, sh,&pos);
+    
+//    for (int i=0; i<n; i++) {
+//        printf("%d..",array[i]);        //after
+//    }
+//    printf("pos: %d\n",pos);
     if (pos>=0) {
         printf("Position of your number is: %d\n",pos);
     }else{
-        printf("Your number can not be founded!!\n");
+        printf("Your number can not be found!!\n");
     }
+    
     return 0;
 }
